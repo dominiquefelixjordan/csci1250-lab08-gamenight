@@ -32,6 +32,40 @@ int leader = LeaderIndex(points);
 Console.WriteLine($"Leader: {players[leader]} with {points[leader]} points!");
 Console.WriteLine($"Season total: {totals}");
 
+//                                                      part 2 start
+
+int[] tonight = new int[players.Length];
+int bestScore = 0;
+int bestScoreIndex = 0;
+
+for (int i = 0; i < players.Length; i++)
+{
+Console.WriteLine($"Points tonight for {players[i]}: "); 
+tonight[i] = Convert.ToInt32(Console.ReadLine());
+
+while (tonight[i] > 20 || tonight[i] < 0)
+{
+Console.WriteLine("Points must be from 0 to 20");
+Console.WriteLine($"Points tonight for {players[i]}: "); 
+tonight[i] = Convert.ToInt32(Console.ReadLine());
+}
+
+if (bestScore < tonight[i])
+{
+bestScore = tonight[i];
+bestScoreIndex = i;
+}
+
+int season = Convert.ToInt32(points[i]) + tonight[i];
+points[i] = season.ToString();
+}
+
+Console.WriteLine($"Tonights winner: {players[bestScoreIndex]} with {tonight[bestScoreIndex]} points");
+File.WriteAllLines(POINTS_FILE, points);
+Console.WriteLine($"Saved points.txt");
+
+
+
 
 
 //methods
